@@ -1,45 +1,59 @@
 import React, { Component } from 'react';
 import './Tickers.css';
+import AddCards from './addCards';
 import Cryptocurrency from './cryptocurrency.js';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { toggleView } from '../actions';
+import { Button } from 'reactstrap';
 
 class Tickers extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            data: [
-               
-            ]
-        };
-    }
-
-    componentDidMount() {
-        this.fetchCryptocurrencyData();
-        this.interval = setInterval(() => this.fetchCryptocurrencyData(), 10 * 1000);
-    }
-
-    fetchCryptocurrencyData() {
-        axios.get("https://api.coinmarketcap.com/v1/ticker/")
-            .then(response => {
-                var wanted = ["bitcoin", "ethereum", "litecoin", "tether", "ripple"];
-                var result = response.data.filter(currency => wanted.includes(currency.id));
-                this.setState({ data: result});
-            })
-            .catch(err => console.log(err));
     }
 
     render() {
-        var tickers = this.state.data.map((currency) =>
+        const wanted = this.props.wanted;
+        const allData = this.props.data;
+        const result = allData.filter(currency => wanted.includes(currency.id));
+        var tickers = result.map((currency) =>
         <Cryptocurrency data={currency} key={currency.id} />
         );
+        
+        if(this.props.showCards === false) { tickers = '' }
         return (
             <div className="tickers-container">
-                <ul className="tickers">{tickers}</ul>
-                <p>Information updated every minute courtesy of coinmarketcap.com</p>
+            <br/><Button color="success" onClick={this.props.showHide}>Toggle Cards View</Button><br/>
+                <row>
+                    <ul className="tickers">
+                        {tickers}
+                    </ul>
+                </row><br/>
+                <AddCards/>
             </div>
         );
     }
 }
 
-export default Tickers;
+const mapStateToProps = state => {
+    return {
+        wanted: state.wanted,
+        data: state.data,
+        showCards: state.showCards
+      }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        showHide: () => {
+            dispatch(toggleView())
+        }
+    }
+}
+ 
+const ConnectedTickers = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Tickers)
+
+export default ConnectedTickers;
