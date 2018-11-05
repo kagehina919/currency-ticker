@@ -33,10 +33,10 @@ class Cards extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = dispatch => { // action type, takes a dispatchable action, maps it to props of the state.
     return {
         addTether: () => {
-            dispatch(addTether())
+            dispatch(addTether()) //dispatch an action to reducer rather than using it here.
         },
         removeTether: () => {
             dispatch(removeTether())
@@ -48,7 +48,7 @@ const mapDispatchToProps = dispatch => {
             dispatch(removeRipple())
         }
     }
-};
+};// it dispatches the action to reducer when called.
 
 const mapStateToProps = state => {
     

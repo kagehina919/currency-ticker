@@ -3,7 +3,9 @@ import {
     REMOVE_RIPPLE,
     ADD_TETHER,
     REMOVE_TETHER,
-    TOGGLE_VIEW } from './actions'
+    TOGGLE_VIEW, 
+    DELETE_VIEW,
+    RESET_VIEW} from './actions'
 
 const initialState = {
     data: [
@@ -70,7 +72,7 @@ export default function cryptoApp(state = initialState, action) {
 
         case ADD_TETHER:
             return {
-                ...state,
+                ...state, //... is spread operator, doesnt change other values but only the value of the variable desired to change.
                 wanted: [...state.wanted, "tether"]
             }
             
@@ -104,8 +106,22 @@ export default function cryptoApp(state = initialState, action) {
             showCards: !state.showCards
         }
 
+        case DELETE_VIEW:
+
+        return {
+            ...state,
+            wanted: []
+        }
+
+        case RESET_VIEW:
+
+        return {
+            ...state,
+            wanted: ["bitcoin", "ethereum", "litecoin"]
+        }
+
         default:
         
         return state
     }
-}
+} // make one reducer for all actions on a page.
