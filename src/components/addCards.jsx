@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Jumbotron } from 'reactstrap';
+import { Button, div } from 'reactstrap';
 import { connect } from 'react-redux';
 import { addRipple, addTether, removeRipple, removeTether } from '../actions';
 
@@ -11,16 +11,24 @@ class Cards extends Component {
 
     render() {
         return (
-            <Jumbotron>
+            <div>
                 <row>
-                    <Button color="primary" onClick={this.props.addTether}>Add Tether</Button> { }
-                    <Button color="danger" onClick={this.props.removeTether}>Remove Tether</Button>
+                    <Button color="primary" onClick={this.props.addTether}>
+                        <strong>Add Tether</strong>
+                    </Button> &nbsp;&nbsp;&nbsp;
+                    <Button color="danger" onClick={this.props.removeTether}>
+                        <strong>Remove Tether</strong>
+                    </Button>
                 </row><br/><br/>
                 <row>
-                    <Button color="primary" onClick={this.props.addRipple}>Add Ripple</Button> { }
-                    <Button color="danger" onClick={this.props.removeRipple}>Remove Ripple</Button>
+                    <Button color="primary" onClick={this.props.addRipple}>
+                        <strong>Add Ripple</strong>
+                    </Button> &nbsp;&nbsp;&nbsp;
+                    <Button color="danger" onClick={this.props.removeRipple}>
+                        <strong>Remove Ripple</strong>
+                    </Button>
                 </row>
-            </Jumbotron>
+            </div>
         );
     }
 }

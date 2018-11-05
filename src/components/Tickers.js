@@ -22,13 +22,15 @@ class Tickers extends Component {
         
         if(this.props.showCards === false) { tickers = '' }
         return (
-            <div className="tickers-container">
-            <br/><Button color="success" onClick={this.props.showHide}>Toggle Cards View</Button><br/>
+            <div className="tickers-container"><br/><br/>
+            <Button color="success" onClick={this.props.showHide}>
+                <strong>Toggle Cards View</strong>
+            </Button><br/><br/>
                 <row>
                     <ul className="tickers">
                         {tickers}
                     </ul>
-                </row><br/>
+                </row><br/><br/><br/>
                 <AddCards/>
             </div>
         );
