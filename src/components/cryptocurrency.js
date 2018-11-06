@@ -26,3 +26,4 @@ class Cryptocurrency extends Component {
 }
 
 export default Cryptocurrency;
+// add a button to delete all.
